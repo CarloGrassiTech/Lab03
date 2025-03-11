@@ -1,14 +1,29 @@
 import time
 
-import multiDictionary as md
-
+import dictionary
+import multiDictionary
+md = multiDictionary.MultiDictionary()
+d = dictionary.Dictionary()
 class SpellChecker:
-
+    #fa da interfaccia fra l'utente e la classe MultiDictionary
     def __init__(self):
         pass
 
     def handleSentence(self, txtIn, language):
-        pass
+        start_time = time.time()
+        if language.lower()=="italian":
+            d.loadDictionary("resources/Italian.txt")
+            md.searchWord(txtIn, language)
+        if language.lower() == "english":
+            d.loadDictionary("resources/English.txt")
+            md.searchWord(txtIn, language)
+        if language.lower() == "spanish":
+            d.loadDictionary("resources/Spanish.txt")
+            md.searchWord(txtIn, language)
+        end_time = time.time()
+        print(f"Tempo di esecuzione: {end_time - start_time:.6f} secondi")
+
+
 
     def printMenu(self):
         print("______________________________\n" +
