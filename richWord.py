@@ -1,7 +1,9 @@
 import dictionary
-d = dictionary.Dictionary()
-class RichWord:
 
+class RichWord:
+#questa classe ha come ogni istanza al suo interno una parola del testo in input,
+#l'indicazione di tale parola se risulti corretta o meno tramite un boolean
+#posso usare questa classe per filtrare le parole corrette durente l'esercizio
     def __init__(self, parola):
         self._parola = parola # this is a string
         self._corretta = None #this is a bool

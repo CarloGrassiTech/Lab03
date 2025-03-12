@@ -1,27 +1,17 @@
+import datetime
 import time
-
 import dictionary
 import multiDictionary
-md = multiDictionary.MultiDictionary()
-d = dictionary.Dictionary()
+
 class SpellChecker:
     #fa da interfaccia fra l'utente e la classe MultiDictionary
     def __init__(self):
-        pass
+        self.md=multiDictionary.MultiDictionary()
 
     def handleSentence(self, txtIn, language):
-        start_time = time.time()
-        if language.lower()=="italian":
-            d.loadDictionary("resources/Italian.txt")
-            md.searchWord(txtIn, language)
-        if language.lower() == "english":
-            d.loadDictionary("resources/English.txt")
-            md.searchWord(txtIn, language)
-        if language.lower() == "spanish":
-            d.loadDictionary("resources/Spanish.txt")
-            md.searchWord(txtIn, language)
-        end_time = time.time()
-        print(f"Tempo di esecuzione: {end_time - start_time:.6f} secondi")
+        self.md.searchWord(txtIn, language)
+
+
 
 
 
@@ -36,6 +26,8 @@ class SpellChecker:
               "4. Exit\n" +
               "______________________________\n")
 
-
-def replaceChars(text):
-    pass
+    def replaceChars(text):
+        chars = "\\`*_{}[]()>#+-.!$%^;,=_~"
+        for c in chars:
+            text = text.replace(c, "")
+        return text

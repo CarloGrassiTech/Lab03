@@ -1,9 +1,6 @@
-import dictionary
-import spellchecker
-import dictionary
-sc = spellchecker.SpellChecker()
-dict = dictionary.Dictionary()
 
+import spellchecker
+sc = spellchecker.SpellChecker()
 while(True):
     d = {}
     flag = True
@@ -24,21 +21,18 @@ while(True):
     # Add input control here!
 
     if int(ans) == 1:
-        dict.loadDictionary("resources/Italian.txt")
         print("Inserisci la tua frase in Italiano\n")
         txtIn = input()
         sc.handleSentence(txtIn,"italian")
         continue
 
     if int(ans) == 2:
-        dict.loadDictionary("resources/English.txt")
         print("Inserisci la tua frase in Inglese\n")
         txtIn = input()
         sc.handleSentence(txtIn,"english")
         continue
 
     if int(ans) == 3:
-        dict.loadDictionary("resources/Spanish.txt")
         print("Inserisci la tua frase in Spagnolo\n")
         txtIn = input()
         sc.handleSentence(txtIn,"spanish")

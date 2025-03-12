@@ -1,3 +1,6 @@
+import richWord
+import spellchecker
+
 class Dictionary:
 
     #questa classe deve gestire il dizionario di una singola lignua, dovrà leggere il file
@@ -6,29 +9,29 @@ class Dictionary:
     def __init__(self):
         self._dict = None
         self.dictionary = []
+        #lista di tuple parola e valore booleno True se la parola è corretta e
+        #e valore False se la parola è errata
 
 
     def loadDictionary(self,path):
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8") as file:
             list = []
             for line in file:
-                if(line.strip().isalpha()):
-                    self.replaceChars(str(line))
-                    list.append(line.lower())
-            dictionary = list.copy()
+                spellchecker.SpellChecker.replaceChars(str(line))
+                temp = line.strip()
+                if(temp.isalpha()):
+                    list.append(temp)
+            self.dictionary = list
+            return self.dictionary
 
 
     def printAll(self):
         res = ""
         for s in self.dictionary:
-            res += str(s)
+            res += str(s[0])
+            res += "\n"
         print(res)
 
-    def replaceChars(self, text):
-        chars = "\\`*_{}[]()>#+-.!$%^;,=_~"
-        for c in chars:
-            text = text.replace(c, "")
-        return text
 
     @property
     def dict(self):
