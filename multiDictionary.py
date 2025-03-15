@@ -60,6 +60,13 @@ class MultiDictionary:
         print("--------------------------------------------------")
 
     def searchWordLinear(self, words, language):
+        """
+        Iterare su tutti gli elementi del vocabolario a partire dal primo. La ricerca termina quando viene trovato
+        l’elemento cercato o si raggiunge l’ultimo, nel caso in cui l’elemento cercato non sia presente nella lista.
+        :param words:
+        :param language:
+        :return:
+        """
         tic = datetime.datetime.now()
         wrongWords = []
         if language.lower() == "english":
@@ -68,6 +75,7 @@ class MultiDictionary:
                 for line in self.engDict:
                     if line == w:
                         flag = False
+                        break
                 if flag:
                     wrongWords.append(w)
 
@@ -77,6 +85,7 @@ class MultiDictionary:
                 for line in self.itaDict:
                     if line == w:
                         flag = False
+                        break
                 if flag:
                     wrongWords.append(w)
 
@@ -86,36 +95,80 @@ class MultiDictionary:
                 for line in self.spaDict:
                     if line == w:
                         flag = False
+                        break
                 if flag:
                     wrongWords.append(w)
 
         print("--------------------------------------------------")
-        print("Using __contains__")
+        print("Using linear search")
         for l in wrongWords:
             print(f"{l}")
         toc = datetime.datetime.now()
         print(f"Tempo di esecuzione: {toc - tic} secondi")
+
     def searchWordDichotomic(self, words, language):
         #devo numerare il dizionario
         tic = datetime.datetime.now()
         wrongWords = []
         if language.lower() == "english":
             for w in words.split():
-                if not self.engDict.__contains__((w, True)):
-                    wrongWords.append(w)
+                confrontoParola = ""
+                flag = True
+                tempDiz = self.engDict.copy()
+                while flag:
+                    conforntoParola = tempDiz[int(len(tempDiz) / 2)]
+                    if w == confrontoParola:
+                        flag = False
+                        wrongWords.append(w)
+                    elif w < confrontoParola: #se True cerco nella meta superiore
+                        tempDiz = tempDiz[0:int(len(tempDiz)/2)]
+                    else: #se sono qui devo cercare nella metà inferiore
+                        tempDiz = tempDiz[int(len(tempDiz)/2):len(tempDiz)]
+                    if len(tempDiz) == 1 and flag:
+                        wrongWords.append(w)
+                        break
+
+
 
         elif language.lower() == "italian":
             for w in words.split():
-                if not self.itaDict.__contains__((w, True)):
-                    wrongWords.append(w)
+                confrontoParola = ""
+                flag = True
+                tempDiz = self.itaDict.copy()
+                while flag:
+                    conforntoParola = tempDiz[int(len(tempDiz) / 2)]
+                    if w == confrontoParola:
+                        flag = False
+                        wrongWords.append(w)
+                    elif w < confrontoParola:  # se True cerco nella meta superiore
+                        tempDiz = tempDiz[0:int(len(tempDiz) / 2)]
+                    else:  # se sono qui devo cercare nella metà inferiore
+                        tempDiz = tempDiz[int(len(tempDiz) / 2):len(tempDiz)]
+                    if len(tempDiz) == 1 and flag:
+                        wrongWords.append(w)
+                        break
 
         elif language.lower() == "spanish":
             for w in words.split():
-                if not self.spaDict.__contains__((w, True)):
-                    wrongWords.append(w)
+                wrongWords = []
+                confrontoParola = ""
+                flag = True
+                tempDiz = self.spaDict.copy()
+                while flag:
+                    conforntoParola = tempDiz[int(len(tempDiz) / 2)] #int() prende solo la parte intera troncando la parte decimale
+                    if w == confrontoParola:
+                        flag = False
+                        wrongWords.append(w)
+                    elif w < confrontoParola:  # se True cerco nella meta superiore
+                        tempDiz = tempDiz[0:int(len(tempDiz) / 2)]
+                    else:  # se sono qui devo cercare nella metà inferiore
+                        tempDiz = tempDiz[int(len(tempDiz) / 2):len(tempDiz)]
+                    if len(tempDiz) == 1 and flag:
+                        wrongWords.append(w)
+                        break
 
         print("--------------------------------------------------")
-        print("Using __contains__")
+        print("Using dicotomic search")
         for l in wrongWords:
             print(f"{l}")
         toc = datetime.datetime.now()

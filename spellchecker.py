@@ -10,6 +10,8 @@ class SpellChecker:
 
     def handleSentence(self, txtIn, language):
         self.md.searchWord(txtIn, language)
+        self.md.searchWordLinear(txtIn, language)
+        self.md.searchWordDichotomic(txtIn, language)
 
 
 
